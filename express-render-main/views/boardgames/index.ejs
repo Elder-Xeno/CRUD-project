@@ -1,0 +1,14 @@
+<%- include('../partials/header') %>
+
+<h2>Board Game Collection</h2>
+<% if (boardGames.length > 0) { %>
+  <ul>
+    <% boardGames.forEach(game => { %>
+      <li><%= game.title %></li>
+    <% }); %>
+  </ul>
+<% } else { %>
+  <p>No board games available.</p>
+<% } %>
+
+<%- include('../partials/footer') %>
