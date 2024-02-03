@@ -1,0 +1,20 @@
+<%- include('./partials/header') %>
+
+<h2>Shelfie</h2>
+<div>
+  <p>Sign in to access your board game collection:</p>
+  <form action="/login" method="POST">
+    <label for="signInUsername">Username:</label>
+    <input type="text" id="signInUsername" name="signInUsername" required>
+  
+    <label for="signInPassword">Password:</label>
+    <input type="password" id="signInPassword" name="signInPassword" required>
+  
+    <button type="submit">Sign In</button>
+  </form>
+  
+  <p>Or log in with:</p>
+  <a href="/auth/google">Login with Google</a>
+</div>
+
+<%- include('./partials/footer') %>
