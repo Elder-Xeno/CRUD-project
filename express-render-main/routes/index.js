@@ -1,5 +1,5 @@
 const express = require('express');
-var router = express.Router();
+const router = express.Router();
 const passport = require('passport');
 
 // Homepage route with a login form
@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 
 // Login route
 router.post('/login', (req, res) => {
-  console.log('User authenticated:', req.isAuthenticated()); // Log authentication status
+  console.log('User authenticated:', req.isAuthenticated());
   res.redirect('/boardgames'); // Redirect to the collection after login
 });
 
@@ -19,12 +19,12 @@ router.get('/auth/google', passport.authenticate('google', {
 }));
 
 // Google OAuth callback route
-router.get('/oauth2callback', passport.authenticate('google', {
-  successRedirect: '/boardgames',
-  failureRedirect: '/',
-}), (req, res) => {
-  console.log('Callback executed'); // Log to check if the callback is executed
-});
+router.get('/oauth2callback',
+  passport.authenticate('google', {
+    successRedirect: '/boardgames',
+    failureRedirect: '/',
+  })
+);
 
 // OAuth logout route
 router.get('/logout', (req, res) => {

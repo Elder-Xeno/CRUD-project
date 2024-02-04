@@ -1,6 +1,8 @@
 <%- include('../partials/header') %>
 
 <h2>Board Game Collection</h2>
+
+<a href="/boardgames/add">Add a New Board Game</a>
 <% if (boardGames.length > 0) { %>
   <ul>
     <% boardGames.forEach(game => { %>
