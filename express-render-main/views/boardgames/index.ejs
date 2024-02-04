@@ -1,14 +1,20 @@
+<!-- views/boardgames/index.ejs -->
+
 <%- include('../partials/header') %>
 
 <h2>Board Game Collection</h2>
 
 <a href="/boardgames/add">Add a New Board Game</a>
+
 <% if (boardGames.length > 0) { %>
-  <ul>
+  <div class="card-container">
     <% boardGames.forEach(game => { %>
-      <li><%= game.title %></li>
+      <div class="card">
+        <img src="/uploads/<%= game.image %>" alt="<%= game.title %> Image">
+        <h3><%= game.title %></h3>
+      </div>
     <% }); %>
-  </ul>
+  </div>
 <% } else { %>
   <p>No board games available.</p>
 <% } %>

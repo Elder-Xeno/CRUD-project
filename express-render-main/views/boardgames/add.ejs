@@ -2,7 +2,7 @@
 
 <h2>Add a New Board Game</h2>
 
-<form action="/boardgames/add" method="POST" > <!-- support file uploads -->
+<form action="/boardgames/add" method="POST" enctype="multipart/form-data"> <!-- support file uploads -->
   <div class="mb-3"> <!-- bootstrap styling -->
     <label for="title" class="form-label">Title</label>
     <input type="text" class="form-control" id="title" name="title" required>
