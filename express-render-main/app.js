@@ -37,7 +37,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
 app.use(session({
@@ -55,10 +54,14 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use(upload.single('image'));
+//Routes set up
 app.use('/', indexRouter);
 app.use('/boardgames', boardgamesRouter);
+
+// Static files setup
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use(upload.single('image'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

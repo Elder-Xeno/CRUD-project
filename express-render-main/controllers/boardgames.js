@@ -3,7 +3,7 @@ const BoardGame = require("../models/boardgames");
 const index = async (req, res) => {
   try {
     const boardGames = await BoardGame.find();
-    res.render("boardgames/index", { boardGames });
+    res.render("boardgames/index", { title: "Board Game Collection", boardGames });
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
@@ -11,7 +11,7 @@ const index = async (req, res) => {
 };
 
 const newBoardGameForm = (req, res) => {
-  res.render("boardgames/add");
+  res.render("boardgames/add", { title: "Add a New Board Game" });
 };
 
 const createBoardGame = async (req, res) => {
@@ -29,7 +29,7 @@ const createBoardGame = async (req, res) => {
     console.log("New board game:", newBoardGame);
     
     await newBoardGame.save();
-    res.redirect("/boardgames");
+    res.render("boardgames/index", { title: "Board Game Collection" });
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");

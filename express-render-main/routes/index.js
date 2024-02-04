@@ -4,7 +4,7 @@ const passport = require('passport');
 
 // Homepage route with a login form
 router.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', { title: 'Shelfie' });
 });
 
 // Login route

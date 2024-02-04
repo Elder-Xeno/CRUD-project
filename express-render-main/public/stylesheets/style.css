@@ -1,3 +1,10 @@
+.banner {
+    background-color: rgb(1, 86, 14);
+    color: #a9a9a9;
+    text-align: center;
+    padding: 20px;
+  }
+
 .card-container {
     display: flex;
     flex-wrap: wrap;
