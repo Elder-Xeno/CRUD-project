@@ -1,11 +1,13 @@
-<%- include('../partials/header') %>
+<%- include('../partials/header', { title: "Board Game Collection", showBanner: false }) %>
 
 <% if (boardGames.length > 0) { %>
   <div class="card-container">
     <% boardGames.forEach(game => { %>
       <div class="card">
-        <img src="/uploads/<%= game.image %>" alt="<%= game.title %> Image">
-        <h3><%= game.title %></h3>
+        <a href="/boardgames/<%= game._id %>"> <!-- Add this line to create a link to the show page -->
+          <img src="/uploads/<%= game.image %>" alt="<%= game.title %> Image">
+          <h3><%= game.title %></h3>
+        </a>
       </div>
     <% }); %>
   </div>
