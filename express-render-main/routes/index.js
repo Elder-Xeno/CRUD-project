@@ -14,9 +14,16 @@ router.post('/login', (req, res) => {
 });
 
 // Google OAuth login route
-router.get('/auth/google', passport.authenticate('google', {
-  scope: ['profile', 'email'],
-}));
+// Google OAuth login route
+router.get('/auth/google', (req, res, next) => {
+  // If user is already authenticated, redirect to the collection
+  if (req.isAuthenticated()) {
+    return res.redirect('/boardgames');
+  }
+  // Otherwise, proceed with authentication
+  next();
+}, passport.authenticate('google', { scope: ['profile', 'email'] }));
+
 
 // Google OAuth callback route
 router.get('/oauth2callback',

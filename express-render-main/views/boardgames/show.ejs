@@ -1,8 +1,13 @@
 <%- include('../partials/header', { showBanner: true, bannerImage: `/${game.image}` }) %>
 
+<%- include('../partials/navbar') %>
+
 <div class="game-details">
   <h2><%= game.title %></h2>
   <p><%= game.description %></p>
+  <p><strong>Player Count:</strong> <%= game.playerCountMin %> - <%= game.playerCountMax %></p>
+  <p><strong>Genres:</strong> <%= game.genres.join(', ') %></p>
+  <p><strong>Mechanics:</strong> <%= game.mechanics.join(', ') %></p>
 </div>
 
 <%- include('../partials/footer') %>

@@ -1,19 +1,50 @@
-<%- include('../partials/header', { showBanner: false }) %>
+<%- include('../partials/header', { showBanner: false }) %> <%-
+include('../partials/navbar') %>
 
-<form action="/boardgames/add" method="POST" enctype="multipart/form-data"> <!-- support file uploads -->
-  <div class="mb-3"> <!-- bootstrap styling -->
+<form action="/boardgames/add" method="POST" enctype="multipart/form-data">
+  <!-- support file uploads -->
+  <div class="mb-3">
+    <!-- bootstrap styling -->
     <label for="title" class="form-label">Title</label>
-    <input type="text" class="form-control" id="title" name="title" required>
+    <input type="text" class="form-control" id="title" name="title" required />
   </div>
   <div class="mb-3">
     <label for="description" class="form-label">Description</label>
-    <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+    <textarea
+      class="form-control"
+      id="description"
+      name="description"
+      rows="3"
+      required
+    ></textarea>
   </div>
   <!-- Use Multer for image uploads -->
   <div class="mb-3">
     <label for="image" class="form-label">Board Game Image</label>
-    <input type="file" class="form-control" id="image" name="image" accept="image/*">
+    <input
+      type="file"
+      class="form-control"
+      id="image"
+      name="image"
+      accept="image/*"
+    />
   </div>
+  <div class="mb-3">
+    <label for="playerCountMin">Minimum Players:</label>
+    <input type="number" id="playerCountMin" name="playerCountMin" required />
+  </div>
+  <div class="mb-3">
+    <label for="playerCountMax">Maximum Players:</label>
+    <input type="number" id="playerCountMax" name="playerCountMax" required />
+  </div>
+  <div class="mb-3">
+    <label for="genres">Genres (comma-separated):</label>
+    <input type="text" id="genres" name="genres" required />
+  </div>
+  <div class="mb-3">
+    <label for="mechanics">Game Mechanics (comma-separated):</label>
+    <input type="text" id="mechanics" name="mechanics">
+  </div>  
 
   <button type="submit" class="submit-btn">Add Board Game</button>
 </form>

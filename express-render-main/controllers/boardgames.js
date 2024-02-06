@@ -1,10 +1,38 @@
-// controllers/boardgames.js
 const BoardGame = require("../models/boardgames");
 
 const index = async (req, res) => {
   try {
-    const boardGames = await BoardGame.find();
-    res.render("boardgames/index", { title: "Board Game Collection", boardGames, showBanner: false });
+    const { playerCount, genre, mechanics } = req.query;
+    let filter = {};
+
+    if (playerCount) {
+      filter = {
+        ...filter,
+        playerCountMin: { $lte: playerCount },
+        playerCountMax: { $gte: playerCount },
+      };
+    }
+
+    if (genre) {
+      filter = {
+        ...filter,
+        genres: { $in: [genre] },
+      };
+    }
+
+    if (mechanics) {
+      filter = {
+        ...filter,
+        mechanics: { $in: [mechanics] },
+      };
+    }
+
+    const boardGames = await BoardGame.find(filter);
+    res.render("boardgames/index", {
+      title: "Board Game Collection",
+      boardGames,
+      showBanner: false,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
@@ -12,21 +40,27 @@ const index = async (req, res) => {
 };
 
 const newBoardGameForm = (req, res) => {
-  res.render("boardgames/add", { title: "Add a New Board Game", showBanner: false });
+  res.render("boardgames/add", {
+    title: "Add a New Board Game",
+    showBanner: false,
+  });
 };
-
 
 const createBoardGame = async (req, res) => {
   try {
     console.log("Received form data:", req.body);
-    const { title, description } = req.body;
+    const { title, description, playerCountMin, playerCountMax, genres, mechanics } = req.body;
     console.log("Title:", title);
+    console.log("Genres:", genres); // Log the genres field
     const image = req.file ? req.file.filename : '';
     const newBoardGame = new BoardGame({
       title,
       description,
       image,
-      // Add more properties
+      playerCountMin,
+      playerCountMax,
+      genres: genres.split(',').map(genre => genre.trim()),
+      mechanics: mechanics.split(',').map(mechanic => mechanic.trim())
     });
     console.log("New board game:", newBoardGame);
     
@@ -38,10 +72,16 @@ const createBoardGame = async (req, res) => {
   }
 };
 
+
 const showBoardGame = async (req, res) => {
   try {
     const game = await BoardGame.findById(req.params.id);
-    res.render("boardgames/show", { title: game.title, showBanner: true, bannerImage: "your-image.jpg", game });
+    res.render("boardgames/show", {
+      title: game.title,
+      showBanner: true,
+      bannerImage: "your-image.jpg",
+      game,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
@@ -54,4 +94,3 @@ module.exports = {
   create: createBoardGame,
   show: showBoardGame,
 };
-

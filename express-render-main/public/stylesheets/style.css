@@ -6,13 +6,13 @@
 }
 
 .banner.dark-background {
-  background-color: #333; /* Adjust the color as needed */
+  background-color: #333;
 }
 
 .banner img {
   width: 100%;
   height: auto;
-  max-height: 300px; /* Adjust the max-height according to your preference */
+  max-height: 300px;
   object-fit: cover;
 }
 
@@ -30,13 +30,59 @@
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  transition: border-color 0.3s;
 }
 
-.card img {
+.card h3 {
+  opacity: 0; /* Initially hide the title */
+  transition: opacity 0.3s;
+}
+
+.card:hover h3 {
+  opacity: 1; /* Display the title on hover */
+}
+
+.card-image {
+  position: relative;
+}
+
+.card-image img {
   max-width: 100%;
   height: auto;
   border-radius: 4px;
-  margin-bottom: 10px;
+}
+
+.image-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0); /* Initially transparent */
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 0 0 4px 4px;
+  transition: background-color 0.3s; /* Add transition for background-color */
+}
+
+.card:hover .image-title {
+  background-color: rgba(0, 0, 0, 0.7); /* Opaque background on hover */
+}
+
+.image-title h3 {
+  margin: 0;
+}
+
+.card {
+  width: 200px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.card:hover {
+  border-color: #007bff;
 }
 
 .container {
