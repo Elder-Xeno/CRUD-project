@@ -11,8 +11,10 @@ router.post('/add', ensureLoggedIn, gamesCtrl.create);
 
 router.get('/:id', ensureLoggedIn, gamesCtrl.show);
 
-router.get('/:id/edit', gamesCtrl.edit);
+router.get('/:id/edit', ensureLoggedIn, gamesCtrl.edit);
 
-router.put('/:id', gamesCtrl.update);
+router.put('/:id', ensureLoggedIn, gamesCtrl.update);
+
+router.post('/:id/delete', ensureLoggedIn, gamesCtrl.delete);
 
 module.exports = router;

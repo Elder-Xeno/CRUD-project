@@ -8,9 +8,15 @@
   <p><strong>Player Count:</strong> <%= game.playerCountMin %> - <%= game.playerCountMax %></p>
   <p><strong>Genres:</strong> <%= game.genres.join(', ') %></p>
   <p><strong>Mechanics:</strong> <%= game.mechanics.join(', ') %></p>
-</div>
 
-<a href="/boardgames/<%= game._id %>/edit">Edit</a>
+  <form action="/boardgames/<%= game._id %>/edit" method="GET">
+    <button type="submit" class="edit-btn">Edit</button>
+  </form>
+
+<form action="/boardgames/<%= game._id %>/delete" method="POST">
+  <button type="submit">Delete</button>
+</form>
+
 </div>
 
 <%- include('../partials/footer') %>

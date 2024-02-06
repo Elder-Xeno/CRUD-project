@@ -2,8 +2,11 @@ const BoardGame = require("../models/boardgames");
 
 const index = async (req, res) => {
   try {
-    const { playerCount, genre, mechanics } = req.query;
+    let { playerCount, genre, mechanics } = req.query;
     let filter = {};
+
+    genre = genre ? genre.toUpperCase() : null;
+    mechanics = mechanics ? mechanics.toUpperCase() : null;
 
     if (playerCount) {
       filter = {
@@ -12,18 +15,17 @@ const index = async (req, res) => {
         playerCountMax: { $gte: playerCount },
       };
     }
-
     if (genre) {
       filter = {
         ...filter,
-        genres: { $in: [genre] },
+        genres: { $in: [new RegExp(genre, 'i')] },
       };
     }
 
     if (mechanics) {
       filter = {
         ...filter,
-        mechanics: { $in: [mechanics] },
+        mechanics: { $in: [new RegExp(mechanics, 'i')] },
       };
     }
 
@@ -117,6 +119,20 @@ const updateGame = async (req, res) => {
   }
 };
 
+const deleteBoardGame = async (req, res) => {
+  try {
+    const gameId = req.params.id;
+    console.log('Deleting game with ID:', gameId); // Add this logging statement
+    await BoardGame.findByIdAndDelete(gameId);
+    console.log('Game deleted successfully');
+    res.redirect('/boardgames');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+
 module.exports = {
   index,
   new: newBoardGameForm,
@@ -124,4 +140,5 @@ module.exports = {
   show: showBoardGame,
   edit: editGameForm,
   update: updateGame,
+  delete: deleteBoardGame,
 };
