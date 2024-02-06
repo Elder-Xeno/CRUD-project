@@ -1,0 +1,36 @@
+<%- include('../partials/header', { showBanner: false }) %>
+
+<%- include('../partials/navbar') %>
+
+<h1>Edit Game</h1>
+
+<form action="/boardgames/<%= game._id %>?_method=PUT" method="POST">
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" class="form-control" id="title" name="title" value="<%= game.title %>" required>
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea class="form-control" id="description" name="description" rows="3" required><%= game.description %></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="playerCountMin">Minimum Players:</label>
+    <input type="number" id="playerCountMin" name="playerCountMin" value="<%= game.playerCountMin %>" required>
+  </div>
+  <div class="mb-3">
+    <label for="playerCountMax">Maximum Players:</label>
+    <input type="number" id="playerCountMax" name="playerCountMax" value="<%= game.playerCountMax %>" required>
+  </div>
+  <div class="mb-3">
+    <label for="genres">Genres (comma-separated):</label>
+    <input type="text" id="genres" name="genres" value="<%= game.genres.join(', ') %>" required>
+  </div>
+  <div class="mb-3">
+    <label for="mechanics">Mechanics (comma-separated):</label>
+    <input type="text" id="mechanics" name="mechanics" value="<%= game.mechanics.join(', ') %>" required>
+  </div>
+
+  <button type="submit" class="submit-btn">Update Game</button>
+</form>
+
+<%- include('../partials/footer') %>

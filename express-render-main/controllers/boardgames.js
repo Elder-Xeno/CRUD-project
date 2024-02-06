@@ -88,9 +88,40 @@ const showBoardGame = async (req, res) => {
   }
 };
 
+const editGameForm = async (req, res) => {
+  try {
+    const game = await BoardGame.findById(req.params.id);
+    res.render('boardgames/edit', { title: 'Edit Game', game });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+const updateGame = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { title, description, playerCountMin, playerCountMax, genres, mechanics } = req.body;
+    const updatedGame = await BoardGame.findByIdAndUpdate(id, {
+      title,
+      description,
+      playerCountMin,
+      playerCountMax,
+      genres: genres.split(',').map(genre => genre.trim()),
+      mechanics: mechanics.split(',').map(mechanic => mechanic.trim())
+    }, { new: true });
+    res.redirect(`/boardgames/${updatedGame._id}`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
 module.exports = {
   index,
   new: newBoardGameForm,
   create: createBoardGame,
   show: showBoardGame,
+  edit: editGameForm,
+  update: updateGame,
 };
