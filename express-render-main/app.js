@@ -11,6 +11,7 @@ const methodOverride = require('method-override');
 
 const indexRouter = require('./routes/index');
 const boardgamesRouter = require('./routes/boardgames');
+const playsRouter = require('./routes/plays');
 
 const app = express();
 const port = process.env.PORT || 3002;
@@ -61,6 +62,7 @@ app.use(upload.single('image'));
 // Routes setup
 app.use('/', indexRouter);
 app.use('/boardgames', boardgamesRouter);
+app.use('/plays', playsRouter);
 
 // Static files setup
 app.use(express.static(path.join(__dirname, 'public')));

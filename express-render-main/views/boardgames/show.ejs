@@ -1,11 +1,12 @@
 <%- include('../partials/header', { showBanner: true, bannerImage: `/${game.image}` }) %>
-
 <%- include('../partials/navbar') %>
 
 <div class="game-details">
   <h2><%= game.title %></h2>
   <p><%= game.description %></p>
-  <p><strong>Player Count:</strong> <%= game.playerCountMin %> - <%= game.playerCountMax %></p>
+  <p>
+    <strong>Player Count:</strong> <%= game.playerCountMin %> - <%= game.playerCountMax %>
+  </p>
   <p><strong>Genres:</strong> <%= game.genres.join(', ') %></p>
   <p><strong>Mechanics:</strong> <%= game.mechanics.join(', ') %></p>
 
@@ -13,10 +14,26 @@
     <button type="submit" class="edit-btn">Edit</button>
   </form>
 
-<form action="/boardgames/<%= game._id %>/delete" method="POST">
-  <button type="submit">Delete</button>
+  <form action="/boardgames/<%= game._id %>/delete" method="POST">
+    <button type="submit">Delete</button>
+  </form>
+</div>
+<form action="/plays/log" method="GET">
+  <input type="hidden" name="title" value="<%= game.title %>">
+  <button type="submit">Log Play</button>
 </form>
 
-</div>
+<% if (playLogs && playLogs.length > 0) { %>
+  <h3>Play Logs:</h3>
+  <ul>
+    <% playLogs.forEach(playLog => { %>
+      <li>
+        Date: <%= playLog.date %>, Players: <%= playLog.players %>, Notes: <%= playLog.notes %>
+      </li>
+    <% }); %>
+  </ul>
+<% } else { %>
+  <p>No play logs available.</p>
+<% } %>
 
 <%- include('../partials/footer') %>

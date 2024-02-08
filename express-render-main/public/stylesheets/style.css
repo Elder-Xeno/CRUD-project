@@ -25,6 +25,8 @@
 
 .card {
   width: 200px;
+  height: 200px;
+  overflow: hidden;
   border: 1px solid #ccc;
   padding: 10px;
   border-radius: 8px;
@@ -39,33 +41,30 @@
 }
 
 .card:hover h3 {
-  opacity: 1; /* Display the title on hover */
-}
-
-.card-image {
-  position: relative;
+  opacity: 1;
 }
 
 .card-image img {
   max-width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
   border-radius: 4px;
 }
 
 .image-title {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0); /* Initially transparent */
+  background-color: rgba(0, 0, 0, 0);
   padding: 10px;
   box-sizing: border-box;
   border-radius: 0 0 4px 4px;
-  transition: background-color 0.3s; /* Add transition for background-color */
+  transition: background-color 0.3s;
 }
 
 .card:hover .image-title {
-  background-color: rgba(0, 0, 0, 0.7); /* Opaque background on hover */
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .image-title h3 {

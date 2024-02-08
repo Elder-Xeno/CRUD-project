@@ -1,4 +1,5 @@
-const BoardGame = require("../models/boardgames");
+const BoardGame = require('../models/boardgames');
+const PlayLog = require('../models/plays');
 
 const index = async (req, res) => {
   try {
@@ -53,7 +54,7 @@ const createBoardGame = async (req, res) => {
     console.log("Received form data:", req.body);
     const { title, description, playerCountMin, playerCountMax, genres, mechanics } = req.body;
     console.log("Title:", title);
-    console.log("Genres:", genres); // Log the genres field
+    console.log("Genres:", genres);
     const image = req.file ? req.file.filename : '';
     const newBoardGame = new BoardGame({
       title,
@@ -78,17 +79,20 @@ const createBoardGame = async (req, res) => {
 const showBoardGame = async (req, res) => {
   try {
     const game = await BoardGame.findById(req.params.id);
+    const logs  = await PlayLog.find({ gameId: req.params.id });
     res.render("boardgames/show", {
       title: game.title,
       showBanner: true,
       bannerImage: "your-image.jpg",
       game,
+      playLogs: logs,
     });
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
   }
 };
+
 
 const editGameForm = async (req, res) => {
   try {
@@ -122,7 +126,7 @@ const updateGame = async (req, res) => {
 const deleteBoardGame = async (req, res) => {
   try {
     const gameId = req.params.id;
-    console.log('Deleting game with ID:', gameId); // Add this logging statement
+    console.log('Deleting game with ID:', gameId);
     await BoardGame.findByIdAndDelete(gameId);
     console.log('Game deleted successfully');
     res.redirect('/boardgames');

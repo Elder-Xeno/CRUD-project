@@ -5,8 +5,8 @@ const boardGameSchema = new Schema({
   title: String,
   description: String,
   image: String,
-  playerCountMin: { type: Number, required: true },
-  playerCountMax: { type: Number, required: true },
+  playerCountMin: { type: Number},
+  playerCountMax: { type: Number},
   genres: { type: [String], default: [] },
   mechanics: { type: [String], default: [] },
 });

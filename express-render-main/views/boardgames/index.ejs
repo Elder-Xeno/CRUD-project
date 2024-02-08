@@ -1,19 +1,21 @@
 <%- include('../partials/header', { title: "Board Game Collection", showBanner: false }) %>
-
+<script src="/scripts/main.js"></script>
 <%- include('../partials/navbar') %>
 
 <form action="/boardgames" method="GET">
   <label for="playerCount">Player Count:</label>
   <input type="number" id="playerCount" name="playerCount">
 
-  <!-- <label for="genre">Genre:</label>
-  <input type="text" id="genre" name="genre"> -->
+  <label for="genre">Genre:</label>
+  <input type="text" id="genre" name="genre">
 
   <label for="mechanics">Mechanics:</label>
-  <input type="text" id="mechanics" name="genre">
+  <input type="text" id="mechanics" name="mechanics">
 
   <button type="submit">Filter</button>
 </form>
+
+<button id="clearFiltersBtn">Clear Filters</button>
 
 <div class="card-container">
   <% if (boardGames.length > 0) { %>

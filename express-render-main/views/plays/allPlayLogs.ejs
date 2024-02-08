@@ -1,0 +1,13 @@
+<%- include('../partials/header', { title: 'All Play Logs', showBanner: false }) %>
+<%- include('../partials/navbar') %>
+
+<h2>All Play Logs</h2>
+<ul>
+  <% playLogs.forEach(playLog => { %>
+    <li>
+      Date: <%= playLog.date %>, Game: <%= playLog.gameId.title %>, Players: <%= playLog.players %>, Notes: <%= playLog.notes %>
+    </li>
+  <% }); %>
+</ul>
+
+<%- include('../partials/footer') %>
