@@ -1,12 +1,9 @@
+/* Common styles */
 .banner {
   background-color: rgb(1, 86, 14);
   color: #a9a9a9;
   text-align: center;
   padding: 20px;
-}
-
-.banner.dark-background {
-  background-color: #333;
 }
 
 .banner img {
@@ -36,7 +33,7 @@
 }
 
 .card h3 {
-  opacity: 0; /* Initially hide the title */
+  opacity: 0;
   transition: opacity 0.3s;
 }
 
@@ -97,4 +94,81 @@
 
 .game-details {
   margin: 20px;
+}
+
+/* Styles for Log Page */
+.all-play-logs {
+  margin-top: 20px;
+}
+
+.play-log-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 250px;
+  overflow: auto;
+  margin-bottom: 20px;
+}
+
+.play-log-card-header {
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.col-md-3 {
+  margin-bottom: 20px;
+}
+
+.play-log-title {
+  margin-bottom: 5px;
+}
+
+.play-log-date {
+  font-size: 12px;
+}
+
+.play-log-card-body {
+  padding: 10px;
+}
+
+.play-log-players-title {
+  margin-bottom: 5px;
+}
+
+.play-log-players-list {
+  padding-left: 0;
+}
+
+.play-log-player {
+  list-style-type: none;
+}
+
+.play-log-toggle-notes {
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.play-log-notes-collapse {
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+  display: none;
+}
+
+/* Show the notes content when the collapse class has 'show' */
+.play-log-notes-collapse.show {
+  display: block;
+}
+
+.play-log-card-footer {
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+}
+
+.play-log-edit-button,
+.play-log-delete-button {
+  margin-right: 5px;
 }

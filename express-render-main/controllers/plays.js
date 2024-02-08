@@ -1,5 +1,11 @@
 const PlayLog = require("../models/plays");
-const BoardGame = require('../models/boardgames');
+const BoardGame = require("../models/boardgames");
+
+// Function to format date in a specific format
+const formatDate = (dateString) => {
+  const options = { year: "numeric", month: "short", day: "numeric" };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+};
 
 // Function to render play log form
 const renderPlayLogForm = (req, res) => {
@@ -40,10 +46,8 @@ const logPlay = async (req, res) => {
     });
     await newPlayLog.save();
 
-    // Send response indicating successful logging of play
-    res
-      .status(200)
-      .json({ message: "Play logged successfully", playLog: newPlayLog });
+    // Redirect to All Play Logs view
+    res.redirect("/plays/playLogs");
   } catch (error) {
     console.error("Error logging play:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -72,21 +76,25 @@ const renderGenericPlayLogForm = (req, res) => {
   });
 };
 
-// Function to render all play logs
+// Function to render the view for displaying game logs
 const renderAllPlayLogs = async (req, res) => {
-    try {
-      // Fetch all play logs
-      const allPlayLogs = await PlayLog.find().populate("gameId");
-      
-      // Render a view to display all play logs
-      res.render("plays/allPlayLogs", { playLogs: allPlayLogs });
-    } catch (error) {
-      console.error("Error fetching play logs:", error);
-      res.status(500).json({ error: "Internal Server Error" });
-    }
-  };
+  try {
+    // Retrieve all game logs
+    const allGameLogs = await PlayLog.find().populate("gameId");
+    // Format the dates before passing to the view
+    const formattedGameLogs = allGameLogs.map((log) => ({
+      ...log.toObject(),
+      formattedDate: formatDate(log.date),
+    }));
+    res.render("plays/allPlayLogs", { gameLogs: formattedGameLogs });
+  } catch (error) {
+    console.error("Error fetching game logs:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 
 module.exports = {
+  formatDate,
   renderPlayLogForm,
   logPlay,
   getPlayLogs,
