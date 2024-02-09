@@ -1,16 +1,15 @@
 /* Common styles */
 .banner {
-  background-color: rgb(1, 86, 14);
+  background-image: url('../images/brown-wooden-textured-flooring-background.jpg');
+  background-size: cover;
+  background-position: center;
   color: #a9a9a9;
   text-align: center;
   padding: 20px;
 }
 
-.banner img {
-  width: 100%;
-  height: auto;
-  max-height: 300px;
-  object-fit: cover;
+body {
+  background-color: #f2f2f2;
 }
 
 .card-container {
@@ -78,7 +77,7 @@
 }
 
 .card:hover {
-  border-color: #007bff;
+  border-color: #4caf50; /* Green color on hover */
 }
 
 .container {
@@ -86,8 +85,7 @@
 }
 
 .banner-title {
-  background-color: rgb(1, 86, 14);
-  color: #a9a9a9;
+  color: #fff; /* White text */
   text-align: center;
   padding: 20px;
 }

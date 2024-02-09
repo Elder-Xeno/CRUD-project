@@ -8,6 +8,10 @@ const playSchema = new Schema(
       ref: "BoardGame",
       required: true,
     },
+    gameTitle: {
+      type: String,
+      required: true,
+    },
     userId: {
       type: Schema.Types.ObjectId,
       ref: "User",

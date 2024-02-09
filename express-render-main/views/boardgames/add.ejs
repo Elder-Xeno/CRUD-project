@@ -1,8 +1,10 @@
-<%- include('../partials/header', { showBanner: false }) %> <%-
-include('../partials/navbar') %>
+<%- include('../partials/header', { showBanner: false }) %>
+<%- include('../partials/navbar') %>
 
-<form action="/boardgames/add" method="POST" enctype="multipart/form-data">
-  <!-- support file uploads -->
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <form action="/boardgames/add" method="POST" enctype="multipart/form-data">
   <div class="mb-3">
     <!-- bootstrap styling -->
     <label for="title" class="form-label">Title</label>
@@ -46,7 +48,10 @@ include('../partials/navbar') %>
     <input type="text" id="mechanics" name="mechanics">
   </div>  
 
-  <button type="submit" class="submit-btn">Add Board Game</button>
+  <button type="submit" class="btn btn-primary"">Add Board Game</button>
 </form>
+</div>
+</div>
+</div>
 
 <%- include('../partials/footer') %>

@@ -1,8 +1,10 @@
 <%- include('../partials/header', { title: "Log Game Play", showBanner: false })
 %> <%- include('../partials/navbar') %>
 
-<h2>Log Play</h2>
-<form action="/plays/logPlay" method="POST">
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <form action="/plays/logPlay" method="POST">
   <input type="hidden" id="gameId" name="gameId" value="<%= gameId %>" />
   
   <label for="gameTitle">Game Title:</label>
@@ -17,7 +19,10 @@
   <label for="notes">Notes:</label>
   <textarea id="notes" name="notes" class="form-control pre-wrap" rows="3"></textarea>  
 
-  <button type="submit">Log Play</button>
+  <button type="button" class="btn btn-primary" type="submit">Log Play</button>
 </form>
+</div>
+</div>
+</div>
 
 <%- include('../partials/footer') %>

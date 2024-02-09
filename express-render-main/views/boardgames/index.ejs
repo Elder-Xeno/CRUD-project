@@ -2,21 +2,38 @@
 <script src="/scripts/main.js"></script>
 <%- include('../partials/navbar') %>
 
-<form action="/boardgames" method="GET">
-  <label for="playerCount">Player Count:</label>
-  <input type="number" id="playerCount" name="playerCount">
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <button class="btn btn-dark mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#filterForm" aria-expanded="false" aria-controls="filterForm">
+        Filter Options
+      </button>
+      <div class="collapse" id="filterForm">
+        <form action="/boardgames" method="GET">
+          <div class="mb-3">
+            <label for="playerCount" class="form-label">Player Count:</label>
+            <input type="number" id="playerCount" name="playerCount" class="form-control">
+          </div>
 
-  <label for="genre">Genre:</label>
-  <input type="text" id="genre" name="genre">
+          <div class="mb-3">
+            <label for="genre" class="form-label">Genre:</label>
+            <input type="text" id="genre" name="genre" class="form-control">
+          </div>
 
-  <label for="mechanics">Mechanics:</label>
-  <input type="text" id="mechanics" name="mechanics">
+          <div class="mb-3">
+            <label for="mechanics" class="form-label">Mechanics:</label>
+            <input type="text" id="mechanics" name="mechanics" class="form-control">
+          </div>
 
-  <button type="submit">Filter</button>
-</form>
-
-<button id="clearFiltersBtn">Clear Filters</button>
-
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <button type="button" class="btn btn-secondary" id="clearFiltersBtn">Clear Filters</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="card-container">
   <% if (boardGames.length > 0) { %>
     <% boardGames.forEach(game => { %>

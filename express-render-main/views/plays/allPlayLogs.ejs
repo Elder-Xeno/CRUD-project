@@ -1,57 +1,44 @@
-<%- include('../partials/header', { title: 'All Play Logs', showBanner: false })
-%> <%- include('../partials/navbar') %>
+<%- include('../partials/header', { title: 'All Play Logs', showBanner: false }) %>
+<%- include('../partials/navbar') %>
 
 <div class="container all-play-logs">
   <div class="row">
     <% gameLogs.forEach(playLog => { %>
-      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
-        <div class="card play-log-card">
-          <div class="card-header play-log-card-header">
-            <h5 class="card-title play-log-title">
-              <%= playLog.gameId ? playLog.gameId.title : "Unknown Game" %>
-            </h5>
-            <small class="text-muted play-log-date"><%= playLog.formattedDate %></small>
-          </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-4">
+      <div class="card play-log-card">
+        <div class="card-header play-log-card-header">
+          <!-- Use the gameTitle property instead of gameId.title -->
+          <h5 class="card-title play-log-title">
+            <%= playLog.gameTitle ? playLog.gameTitle : "Unknown Game" %>
+          </h5>
+          <small class="text-muted play-log-date"><%= playLog.formattedDate %></small>
+        </div>
         <div class="card-body play-log-card-body">
-          <h6 class="card-subtitle mb-2 text-muted play-log-players-title">
-            Players:
-          </h6>
+          <h6 class="card-subtitle mb-2 text-muted play-log-players-title">Players:</h6>
           <ul class="list-unstyled play-log-players-list">
             <% playLog.players.forEach(player => { %>
             <li class="play-log-player"><%= player %></li>
             <% }); %>
           </ul>
           <% if (playLog.notes) { %>
-          <button
-            class="btn btn-link toggle-notes play-log-toggle-notes"
-            type="button"
-            data-toggle-target="#notes<%= playLog._id %>"
-          >
+          <button class="btn btn-link toggle-notes play-log-toggle-notes" type="button"
+            data-toggle-target="#notes<%= playLog._id %>">
             Notes
           </button>
-          <div
-            class="collapse<%= playLog.notes ? ' show' : '' %> play-log-notes-collapse"
-            id="notes<%= playLog._id %>"
-          >
+          <div class="collapse<%= playLog.notes ? ' show' : '' %> play-log-notes-collapse"
+            id="notes<%= playLog._id %>">
             <p class="play-log-notes"><%= playLog.notes %></p>
           </div>
           <% } %>
         </div>
         <div class="card-footer play-log-card-footer">
-          <form
-            action="/plays/<%= playLog._id %>/edit"
-            method="GET"
-            style="display: inline">
-            <button type="submit" class="btn btn-primary play-log-edit-button">
-              Edit
-            </button>
+          <form action="/plays/<%= playLog._id %>/edit" method="GET" style="display: inline">
+            <button type="submit" class="btn btn-primary play-log-edit-button">Edit</button>
           </form>
 
           <form action="/plays/<%= playLog._id %>/delete" method="POST">
             <input type="hidden" name="_method" value="DELETE" />
-            <button type="submit" class="btn btn-danger play-log-delete-button">
-              Delete
-            </button>
+            <button type="submit" class="btn btn-danger play-log-delete-button">Delete</button>
           </form>
         </div>
       </div>
@@ -63,3 +50,4 @@
 <%- include('../partials/footer') %>
 
 <script src="/scripts/playLogs.js"></script>
+

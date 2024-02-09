@@ -2,7 +2,9 @@
 
 <title><%= title %></title>
 
-<div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
   <p>Sign in to access your board game collection:</p>
   <form action="/login" method="POST">
     <label for="signInUsername">Username:</label>
@@ -12,10 +14,12 @@
     <input type="password" id="signInPassword" name="signInPassword" required>
   
     <button type="submit">Sign In</button>
-  </form>
-  
+
   <p>Or log in with:</p>
   <a href="/auth/google">Login with Google</a>
 </div>
-
+</form>
+</div>
+</div>
+</div>
 <%- include('./partials/footer') %>
