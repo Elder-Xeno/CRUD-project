@@ -8,7 +8,10 @@ Users can effortlessly add new games to their collection using a clean and easy-
 
 ## Screenshot
 
-![Board Game Collection App Screenshot](url_to_your_image_on_imgur)
+![collections-page](https://github.com/Elder-Xeno/CRUD-project/assets/116142253/cb2e91e0-9b27-4604-a03e-d148e910c53f)
+![show-details-page](https://github.com/Elder-Xeno/CRUD-project/assets/116142253/0b275606-c35b-4fa8-ac54-2f1b826899cd)
+![show-details-page2](https://github.com/Elder-Xeno/CRUD-project/assets/116142253/82e4250b-b68c-4d6b-9b16-7551c00ab270)
+
 
 ## Technologies Used
 
@@ -23,7 +26,7 @@ Users can effortlessly add new games to their collection using a clean and easy-
 
 ## Getting Started
 
-[Click to see live project!](your_render_deployment_url_here)
+[Click to see live project!][(your_render_deployment_url_here](https://crud-project-yue5.onrender.com))
 
 ## Next Steps
 
