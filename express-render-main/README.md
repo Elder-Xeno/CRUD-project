@@ -26,8 +26,8 @@ Users can effortlessly add new games to their collection using a clean and easy-
 
 ## Getting Started
 
-[Click to see live project!][(your_render_deployment_url_here](https://crud-project-yue5.onrender.com))
-
+[Click to see live project!][(https://crud-project-yue5.onrender.com)]
+]
 ## Next Steps
 
 Here are some potential future enhancements for the app:
