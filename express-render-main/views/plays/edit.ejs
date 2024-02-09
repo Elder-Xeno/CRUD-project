@@ -1,0 +1,62 @@
+<%- include('../partials/header', { title: 'Edit Play Log', showBanner: false })
+%> <%- include('../partials/navbar') %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <form action="/plays/<%= log._id %>?_method=PUT" method="POST">
+        <div class="form-group">
+          <label for="gameTitle">Game Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="gameTitle"
+            name="gameTitle"
+            value="<%= log.gameTitle %>"
+          />
+        </div>
+        <div class="form-group">
+          <label for="date">Date</label>
+          <input
+            type="date"
+            class="form-control"
+            id="date"
+            name="date"
+            value="<%= log.date.toISOString().split('T')[0] %>"
+          />
+        </div>
+        <div class="form-group">
+          <label for="players">Players</label>
+          <input
+            type="text"
+            class="form-control"
+            id="players"
+            name="players"
+            value="<%= log.players.join(', ') %>"
+          />
+        </div>
+        <div class="form-group">
+          <label for="notes">Notes:</label>
+          <textarea
+            id="notes"
+            name="notes"
+            class="form-control pre-wrap"
+            rows="3"
+          >
+            
+<%= log.notes %></textarea
+          >
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </form>
+      <form action="/plays/playLogs" method="GET" style="display: inline">
+  <button type="submit" class="btn btn-secondary play-log-cancel-button">
+    Cancel
+  </button>
+</form>
+
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

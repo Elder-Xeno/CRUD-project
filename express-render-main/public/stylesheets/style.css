@@ -96,6 +96,10 @@
   margin: 20px;
 }
 
+.pre-wrap {
+  white-space: pre-wrap;
+}
+
 /* Styles for Log Page */
 .all-play-logs {
   margin-top: 20px;

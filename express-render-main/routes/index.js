@@ -14,7 +14,6 @@ router.post('/login', (req, res) => {
 });
 
 // Google OAuth login route
-// Google OAuth login route
 router.get('/auth/google', (req, res, next) => {
   // If user is already authenticated, redirect to the collection
   if (req.isAuthenticated()) {

@@ -14,6 +14,16 @@
     <textarea class="form-control" id="description" name="description" rows="3" required><%= game.description %></textarea>
   </div>
   <div class="mb-3">
+    <label for="image" class="form-label">Board Game Image</label>
+    <input
+      type="file"
+      class="form-control"
+      id="image"
+      name="image"
+      accept="image/*"
+    />
+  </div>
+  <div class="mb-3">
     <label for="playerCountMin">Minimum Players:</label>
     <input type="number" id="playerCountMin" name="playerCountMin" value="<%= game.playerCountMin %>" required>
   </div>

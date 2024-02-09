@@ -19,23 +19,15 @@ const renderPlayLogForm = (req, res) => {
 // Function to handle submitting play log
 const logPlay = async (req, res) => {
   try {
-    // Extract data from the request body
     const { gameTitle, date, players, notes } = req.body;
-
-    // Check if gameTitle is provided
     if (!gameTitle) {
       return res.status(400).json({ error: "Game title is required" });
     }
-
-    // Check if the game already exists in the collection
     let game = await BoardGame.findOne({ title: gameTitle });
     if (!game) {
-      // If the game doesn't exist, create a new entry in the games collection
       game = new BoardGame({ title: gameTitle });
       await game.save();
     }
-
-    // Log play
     const newPlayLog = new PlayLog({
       gameId: game._id,
       gameTitle,
@@ -45,8 +37,6 @@ const logPlay = async (req, res) => {
       notes,
     });
     await newPlayLog.save();
-
-    // Redirect to All Play Logs view
     res.redirect("/plays/playLogs");
   } catch (error) {
     console.error("Error logging play:", error);
@@ -58,7 +48,7 @@ const logPlay = async (req, res) => {
 const getPlayLogs = async (req, res) => {
   try {
     const { id } = req.params;
-    const playLogs = await PlayLog.find({ gameId: id });
+    const playLogs = await PlayLog.find({ gameId: id }).populate("gameId");
     res.json(playLogs);
   } catch (error) {
     console.error("Error fetching play logs:", error);
@@ -68,7 +58,7 @@ const getPlayLogs = async (req, res) => {
 
 // Function to render play log form for adding a play to a game not in the collection
 const renderGenericPlayLogForm = (req, res) => {
-  const gameId = req.params.id; // Get the gameId from request parameters
+  const gameId = req.params.id;
   res.render("plays/genericLogForm", {
     gameId,
     showBanner: true,
@@ -79,16 +69,60 @@ const renderGenericPlayLogForm = (req, res) => {
 // Function to render the view for displaying game logs
 const renderAllPlayLogs = async (req, res) => {
   try {
-    // Retrieve all game logs
     const allGameLogs = await PlayLog.find().populate("gameId");
-    // Format the dates before passing to the view
     const formattedGameLogs = allGameLogs.map((log) => ({
       ...log.toObject(),
       formattedDate: formatDate(log.date),
     }));
-    res.render("plays/allPlayLogs", { gameLogs: formattedGameLogs });
+    const gameId = req.params.id;
+    res.render("plays/allPlayLogs", { gameId, gameLogs: formattedGameLogs });
   } catch (error) {
     console.error("Error fetching game logs:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+const editPlayForm = async (req, res) => {
+  try {
+    const log = await PlayLog.findById(req.params.id);
+    res.render("plays/edit", { title: "Edit Play Log", log });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+// Function to update a play log
+const updatePlayLog = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { gameTitle, date, players, notes } = req.body;
+
+    await PlayLog.findByIdAndUpdate(
+      id,
+      {
+        gameTitle,
+        date,
+        players,
+        notes,
+      },
+      { new: true }
+    );
+    res.redirect("/plays/playLogs");
+  } catch (error) {
+    console.error("Error updating play log:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+// Function to delete a play log
+const deletePlayLog = async (req, res) => {
+  try {
+    const playId = req.params.id;
+    await PlayLog.findByIdAndDelete(playId);
+    res.redirect("/plays/playLogs");
+  } catch (error) {
+    console.error("Error deleting play log:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -100,6 +134,7 @@ module.exports = {
   getPlayLogs,
   renderGenericPlayLogForm,
   renderAllPlayLogs,
-  // update: updatePlayLog,
-  // delete: deletePlayLog,
+  edit: editPlayForm,
+  update: updatePlayLog,
+  delete: deletePlayLog,
 };
