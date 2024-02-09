@@ -15,13 +15,14 @@
   </form>
 
   <form action="/boardgames/<%= game._id %>/delete" method="POST">
-    <button type="submit" class="btn btn-danger">Delete</button>
+    <button type="submit" class="btn btn-danger" style="margin-right: 10px;">Delete</button>
+  </form>
+
+  <form action="/plays/log" method="GET">
+    <input type="hidden" name="title" value="<%= game.title %>">
+    <button type="submit" class="btn btn-success">Log Play</button>
   </form>
 </div>
-<form action="/plays/log" method="GET">
-  <input type="hidden" name="title" value="<%= game.title %>">
-  <button type="submit" class="btn btn-success">Log Play</button>
-</form>
 
 <% if (playLogs && playLogs.length > 0) { %>
   <h3>Play Logs:</h3>
