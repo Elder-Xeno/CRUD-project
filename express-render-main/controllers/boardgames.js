@@ -75,7 +75,7 @@ const createBoardGame = async (req, res) => {
     console.log("New board game:", newBoardGame);
 
     await newBoardGame.save();
-    res.redirect(`/boardgames/${newBoardGame._id}`); // Redirect to the newly created board game's page
+    res.redirect(`/boardgames/${newBoardGame._id}`);
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
@@ -141,15 +141,26 @@ const updateGame = async (req, res) => {
       updatedFields.image = image;
     }
 
+    // Find the existing game by ID
+    const existingGame = await BoardGame.findById(id);
+
+    // If no new image file is uploaded, retain the existing image path
+    if (image === "" && existingGame.image) {
+      updatedFields.image = existingGame.image;
+    }
+
+    // Update the game with the modified fields
     const updatedGame = await BoardGame.findByIdAndUpdate(id, updatedFields, {
       new: true,
     });
+
     res.redirect(`/boardgames/${updatedGame._id}`);
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
   }
 };
+
 
 const deleteBoardGame = async (req, res) => {
   try {
