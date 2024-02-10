@@ -131,6 +131,10 @@ footer {
   outline: none;
 }
 
+.play-log-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
 .game-details form {
   margin-bottom: 10px;
 }

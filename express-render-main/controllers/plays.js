@@ -47,14 +47,15 @@ const logPlay = async (req, res) => {
 // Function to get play logs for a specific game
 const getPlayLogs = async (req, res) => {
   try {
-    const { id } = req.params;
-    const playLogs = await PlayLog.find({ gameId: id }).populate("gameId");
-    res.json(playLogs);
+    const gameId = req.params.id;
+    const playLogs = await PlayLog.find({ gameId }).populate("userId");
+    res.render("boardgames/show", { game, playLogs });
   } catch (error) {
     console.error("Error fetching play logs:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
 
 // Function to render play log form for adding a play to a game not in the collection
 const renderGenericPlayLogForm = (req, res) => {
