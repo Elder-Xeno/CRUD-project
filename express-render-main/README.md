@@ -26,7 +26,7 @@ Users can effortlessly add new games to their collection using a clean and easy-
 
 ## Getting Started
 
-[Click to see live project!][(https://crud-project-yue5.onrender.com)]
+[Click to see live project!][[(https://crud-project-yue5.onrender.com)]](https://crud-project-yue5.onrender.com)
 ]
 ## Next Steps
 
