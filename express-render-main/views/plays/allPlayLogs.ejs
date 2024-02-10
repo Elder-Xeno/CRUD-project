@@ -1,4 +1,4 @@
-<%- include('../partials/header', { title: 'All Play Logs', showBanner: false }) %>
+<%- include('../partials/header', { title: 'All Play Logs', showBanner: false }) %> 
 <%- include('../partials/navbar') %>
 
 <div class="container all-play-logs">
@@ -14,19 +14,19 @@
           <small class="text-muted play-log-date"><%= playLog.formattedDate %></small>
         </div>
         <div class="card-body play-log-card-body">
-          <h6 class="card-subtitle mb-2 text-muted play-log-players-title">Players:</h6>
+          <h6 class="card-subtitle mb-2 text-muted play-log-players-title">
+            Players:
+          </h6>
           <ul class="list-unstyled play-log-players-list">
             <% playLog.players.forEach(player => { %>
             <li class="play-log-player"><%= player %></li>
             <% }); %>
           </ul>
           <% if (playLog.notes) { %>
-          <button class="btn btn-link toggle-notes play-log-toggle-notes" type="button"
-            data-toggle-target="#notes<%= playLog._id %>">
+          <button class="btn btn-link toggle-notes play-log-toggle-notes" type="button" data-toggle="collapse" data-target="#notes<%= playLog._id %>">
             Notes
           </button>
-          <div class="collapse<%= playLog.notes ? ' show' : '' %> play-log-notes-collapse"
-            id="notes<%= playLog._id %>">
+          <div class="collapse<%= playLog.notes ? ' show' : '' %> play-log-notes-collapse" id="notes<%= playLog._id %>">
             <p class="play-log-notes"><%= playLog.notes %></p>
           </div>
           <% } %>
@@ -35,7 +35,6 @@
           <form action="/plays/<%= playLog._id %>/edit" method="GET" style="display: inline">
             <button type="submit" class="btn btn-primary play-log-edit-button">Edit</button>
           </form>
-
           <form action="/plays/<%= playLog._id %>/delete" method="POST">
             <input type="hidden" name="_method" value="DELETE" />
             <button type="submit" class="btn btn-danger play-log-delete-button">Delete</button>
@@ -49,5 +48,16 @@
 
 <%- include('../partials/footer') %>
 
-<script src="/scripts/playLogs.js"></script>
-
+<script>
+  document.querySelectorAll(".toggle-notes").forEach(function (button) {
+    button.addEventListener("click", function () {
+      var targetId = this.getAttribute("data-target");
+      var target = document.querySelector(targetId);
+      if (target.classList.contains("show")) {
+        target.classList.remove("show");
+      } else {
+        target.classList.add("show");
+      }
+    });
+  });
+</script>
