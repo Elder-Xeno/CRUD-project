@@ -39,6 +39,16 @@
     <label for="mechanics">Mechanics (comma-separated):</label>
     <input type="text" id="mechanics" name="mechanics" value="<%= game.mechanics.join(', ') %>" required>
   </div>
+  <div class="mb-3">
+    <label for="ownershipStatus">Collection:</label>
+    <select id="ownershipStatus" name="ownershipStatus" class="form-control">
+      <option value="Personal Collection" <%= game.ownershipStatus === "Personal Collection" ? "selected" : "" %>>Personal Collection</option>
+      <option value="Friends Collection" <%= game.ownershipStatus === "Friends Collection" ? "selected" : "" %>>Friends Collection</option>
+      <option value="Group Collection" <%= game.ownershipStatus === "Group Collection" ? "selected" : "" %>>Group Collection</option>
+      <option value="Online" <%= game.ownershipStatus === "Online" ? "selected" : "" %>>Online</option>
+    </select>    
+  </div>
+  
 
   <button type="submit" class="submit-btn">Update Game</button>
 </form>

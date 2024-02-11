@@ -1,33 +1,72 @@
-<%- include('../partials/header', { title: "Board Game Collection", showBanner: false }) %>
+<%- include('../partials/header', { title: "Board Game Collection", showBanner:
+false }) %>
 <script src="/scripts/main.js"></script>
 <%- include('../partials/navbar') %>
 
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <button class="btn btn-dark mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#filterForm" aria-expanded="false" aria-controls="filterForm">
+      <button
+        class="btn btn-dark mb-3"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#filterForm"
+        aria-expanded="false"
+        aria-controls="filterForm"
+      >
         Filter Options
       </button>
       <div class="collapse" id="filterForm">
         <form action="/boardgames" method="GET">
           <div class="mb-3">
             <label for="playerCount" class="form-label">Player Count:</label>
-            <input type="number" id="playerCount" name="playerCount" class="form-control">
+            <input
+              type="number"
+              id="playerCount"
+              name="playerCount"
+              class="form-control"
+            />
           </div>
 
           <div class="mb-3">
             <label for="genre" class="form-label">Genre:</label>
-            <input type="text" id="genre" name="genre" class="form-control">
+            <input type="text" id="genre" name="genre" class="form-control" />
           </div>
 
           <div class="mb-3">
             <label for="mechanics" class="form-label">Mechanics:</label>
-            <input type="text" id="mechanics" name="mechanics" class="form-control">
+            <input
+              type="text"
+              id="mechanics"
+              name="mechanics"
+              class="form-control"
+            />
           </div>
-
+          <div class="mb-3">
+            <label for="ownershipStatus" class="form-label"
+              >Ownership Status:</label
+            >
+            <select
+              id="ownershipStatus"
+              name="ownershipStatus"
+              class="form-control"
+            >
+              <option value="">All</option>
+              <option value="Personal Collection">Personal Collection</option>
+              <option value="Friends Collection">Friends Collection</option>
+              <option value="Group Collection">Group Collection</option>
+              <option value="Online">Online</option>
+            </select>
+          </div>
           <div class="text-center">
             <button type="submit" class="btn btn-primary">Filter</button>
-            <button type="button" class="btn btn-secondary" id="clearFiltersBtn">Clear Filters</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="clearFiltersBtn"
+            >
+              Clear Filters
+            </button>
           </div>
         </form>
       </div>
@@ -35,22 +74,19 @@
   </div>
 </div>
 <div class="card-container">
-  <% if (boardGames.length > 0) { %>
-    <% boardGames.forEach(game => { %>
-      <div class="card">
-        <a href="/boardgames/<%= game._id %>">
-          <div class="card-image">
-            <img src="/uploads/<%= game.image %>" alt="<%= game.title %> Image">
-            <div class="image-title">
-              <h3><%= game.title %></h3>
-            </div>
-          </div>
-        </a>
+  <% if (boardGames.length > 0) { %> <% boardGames.forEach(game => { %>
+  <div class="card">
+    <a href="/boardgames/<%= game._id %>">
+      <div class="card-image">
+        <img src="/uploads/<%= game.image %>" alt="<%= game.title %> Image" />
+        <div class="image-title">
+          <h3><%= game.title %></h3>
+        </div>
       </div>
-    <% }); %>
+    </a>
   </div>
-  <% } else { %>
-    <p>No board games available.</p>
-  <% } %>
-
-  <%- include('../partials/footer') %>
+  <% }); %>
+</div>
+<% } else { %>
+<p>No board games available.</p>
+<% } %> <%- include('../partials/footer') %>

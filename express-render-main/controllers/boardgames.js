@@ -3,8 +3,10 @@ const PlayLog = require("../models/plays");
 
 const index = async (req, res) => {
   try {
-    let { playerCount, genre, mechanics } = req.query;
+    console.log("Request Query Parameters:", req.query);
+    let { playerCount, genre, mechanics, ownershipStatus } = req.query;
     let filter = {};
+
 
     genre = genre ? genre.toUpperCase() : null;
     mechanics = mechanics ? mechanics.toUpperCase() : null;
@@ -30,6 +32,17 @@ const index = async (req, res) => {
       };
     }
 
+   if (ownershipStatus) {
+      console.log("Applying Ownership Status Filter:", ownershipStatus);
+      filter = {
+        ...filter,
+        ownershipStatus: ownershipStatus,
+      };
+    }
+
+    console.log("Generated Filter:", filter);
+
+
     const boardGames = await BoardGame.find(filter);
     res.render("boardgames/index", {
       title: "Board Game Collection",
@@ -42,16 +55,17 @@ const index = async (req, res) => {
   }
 };
 
+
 const newBoardGameForm = (req, res) => {
   res.render("boardgames/add", {
     title: "Add a New Board Game",
     showBanner: false,
+    BoardGame: BoardGame,
   });
 };
 
 const createBoardGame = async (req, res) => {
   try {
-    console.log("Received form data:", req.body);
     const {
       title,
       description,
@@ -59,9 +73,9 @@ const createBoardGame = async (req, res) => {
       playerCountMax,
       genres,
       mechanics,
+      ownershipStatus,
     } = req.body;
-    console.log("Title:", title);
-    console.log("Genres:", genres);
+    
     const image = req.file ? req.file.filename : "";
     const newBoardGame = new BoardGame({
       title,
@@ -71,8 +85,8 @@ const createBoardGame = async (req, res) => {
       playerCountMax,
       genres: genres.split(",").map((genre) => genre.trim()),
       mechanics: mechanics.split(",").map((mechanic) => mechanic.trim()),
+      ownershipStatus,
     });
-    console.log("New board game:", newBoardGame);
 
     await newBoardGame.save();
     res.redirect(`/boardgames/${newBoardGame._id}`);
@@ -92,12 +106,14 @@ const showBoardGame = async (req, res) => {
       bannerImage: "your-image.jpg",
       game,
       playLogs: logs,
+      ownershipStatus: game.ownershipStatus,
     });
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");
   }
 };
+
 
 const editGameForm = async (req, res) => {
   try {
@@ -119,9 +135,9 @@ const updateGame = async (req, res) => {
       playerCountMax,
       genres,
       mechanics,
+      ownershipStatus,
     } = req.body;
 
-    // Check if a file has been uploaded
     let image = "";
     if (req.file) {
       image = req.file.filename;
@@ -134,22 +150,19 @@ const updateGame = async (req, res) => {
       playerCountMax,
       genres: genres.split(",").map((genre) => genre.trim()),
       mechanics: mechanics.split(",").map((mechanic) => mechanic.trim()),
+      ownershipStatus,
     };
 
-    // Only update the image field if a file has been uploaded
     if (image !== "") {
       updatedFields.image = image;
     }
 
-    // Find the existing game by ID
     const existingGame = await BoardGame.findById(id);
 
-    // If no new image file is uploaded, retain the existing image path
     if (image === "" && existingGame.image) {
       updatedFields.image = existingGame.image;
     }
 
-    // Update the game with the modified fields
     const updatedGame = await BoardGame.findByIdAndUpdate(id, updatedFields, {
       new: true,
     });
@@ -161,13 +174,10 @@ const updateGame = async (req, res) => {
   }
 };
 
-
 const deleteBoardGame = async (req, res) => {
   try {
     const gameId = req.params.id;
-    console.log("Deleting game with ID:", gameId);
     await BoardGame.findByIdAndDelete(gameId);
-    console.log("Game deleted successfully");
     res.redirect("/boardgames");
   } catch (err) {
     console.error(err);

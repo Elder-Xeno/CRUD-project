@@ -9,6 +9,7 @@
   </p>
   <p><strong>Genres:</strong> <%= game.genres.join(', ') %></p>
   <p><strong>Mechanics:</strong> <%= game.mechanics.join(', ') %></p>
+  <p><strong>Collection Status:</strong> <%= game.ownershipStatus %></p>
 
   <form action="/boardgames/<%= game._id %>/edit" method="GET">
     <button type="submit" class="btn btn-primary">Edit</button>
